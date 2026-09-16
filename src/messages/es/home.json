@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "title": "mvnex - Experiencia moderna para Maven",
+    "description": "mvnex es una CLI nativa que simplifica flujos de Maven sin reemplazar Maven.",
+    "ogTitle": "mvnex",
+    "ogDescription": "Una capa moderna de experiencia de desarrollo para proyectos Maven."
+  },
+  "hero": {
+    "eyebrow": "Flujos modernos para Maven",
+    "title": "Maven sigue siendo Maven. La experiencia se vuelve mas rapida.",
+    "description": "mvnex es una CLI nativa para crear y evolucionar proyectos Maven estandar con un flujo mas simple e interactivo.",
+    "primaryCta": "Ver en GitHub",
+    "secondaryCta": "Documentation"
+  },
+  "terminal": {
+    "lines": ["mvnex init my-app", "mvnex add lombok", "mvn package"]
+  },
+  "intro": {
+    "eyebrow": "Que es mvnex",
+    "title": "Una capa de experiencia de desarrollo para Maven.",
+    "description": "mvnex no es un build system nuevo. Es una CLI enfocada que mantiene intacto el modelo de proyecto de Maven mientras hace que los flujos comunes se sientan mas directos, descubiertos y agradables."
+  },
+  "problem": {
+    "eyebrow": "El problema",
+    "title": "Maven es poderoso. El flujo diario puede sentirse mas pesado de lo necesario.",
+    "description": "Los desarrolladores Java muchas veces saben exactamente que quieren hacer, pero aun asi saltan entre comandos, coordenadas Maven, edicion de XML, configuracion de wrapper y convenciones de proyecto. mvnex busca suavizar esos momentos sin quitarle el control a Maven.",
+    "points": [
+      "Crear proyectos deberia sentirse guiado, no repetitivo.",
+      "Trabajar con dependencias comunes no deberia exigir memorizar coordenadas.",
+      "Los proyectos generados deben seguir siendo proyectos Maven ordinarios."
+    ]
+  },
+  "highlights": [
+    {
+      "title": "Construido alrededor de Maven",
+      "description": "La meta es mejorar flujos de Maven, no ocultar ni reemplazar el ecosistema Maven."
+    },
+    {
+      "title": "Nativo y enfocado",
+      "description": "mvnex es una CLI nativa disenada para flujos rapidos de proyecto e interaccion clara en terminal."
+    },
+    {
+      "title": "Adopcion de bajo riesgo",
+      "description": "Los proyectos deben seguir siendo proyectos Maven estandar que los equipos puedan usar sin mvnex."
+    }
+  ],
+  "promise": {
+    "eyebrow": "Promesa del producto",
+    "title": "Comandos pequenos, proyectos estandar.",
+    "description": "mvnex debe sentirse como una CLI moderna en la terminal y desaparecer en una salida Maven estandar dentro del repositorio.",
+    "items": [
+      {
+        "title": "Defaults ergonomicos",
+        "description": "Preguntar cuando ayuda, aceptar flags cuando importa automatizar y mantener las decisiones visibles."
+      },
+      {
+        "title": "Resultados compatibles con Maven",
+        "description": "La salida debe funcionar con IDEs, CI, plugins, repositorios y comandos mvn normales."
+      },
+      {
+        "title": "Espacio para crecer",
+        "description": "La misma filosofia puede extenderse desde creacion de proyectos hacia dependencias, updates y tareas repetidas."
+      }
+    ]
+  },
+  "roadmap": {
+    "eyebrow": "Vision",
+    "title": "Traer ergonomia moderna de CLI a proyectos Java sin inventar un ecosistema nuevo.",
+    "items": ["Creacion de proyectos", "Flujos de dependencias", "Salida compatible con Maven", "Sin lock-in"]
+  },
+  "audience": {
+    "eyebrow": "Hecho para",
+    "title": "Desarrolladores que valoran la base de Maven, pero quieren una interfaz mas tranquila.",
+    "description": "mvnex es para desarrolladores Java, estudiantes, equipos backend y creadores de herramientas que quieren ergonomia moderna de terminal sin salir del ecosistema Maven."
+  },
+  "footer": {
+    "tagline": "Construido como documentacion Astro separada con la misma identidad visual del portafolio.",
+    "copyright": "docs de mvnex"
+  }
+}

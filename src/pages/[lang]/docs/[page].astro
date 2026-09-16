@@ -1,0 +1,231 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import DocsMobileNav from "../../../components/DocsMobileNav.astro";
+import en from "../../../messages/en/docs.json";
+import es from "../../../messages/es/docs.json";
+
+export function getStaticPaths() {
+  const pages = ["build-from-source", "create-project", "commands", "generated-output", "principles", "roadmap"];
+
+  return [
+    ...pages.map((page) => ({ params: { lang: "en", page } })),
+    ...pages.map((page) => ({ params: { lang: "es", page } })),
+  ];
+}
+
+const lang = Astro.params.lang === "es" ? "es" : "en";
+const messages = lang === "es" ? es : en;
+const page = Astro.params.page;
+
+function localizeHref(href: string) {
+  if (!href.startsWith("/")) return href;
+  return `/${lang}${href}`;
+}
+
+const contentMap: Record<string, any> = {
+  "build-from-source": messages.sections.find((section) => section.id === "build-from-source"),
+  "create-project": messages.sections.find((section) => section.id === "create-project"),
+  commands: messages.commands,
+  "generated-output": messages.output,
+  principles: messages.principles,
+  roadmap: messages.roadmap,
+};
+
+const content = contentMap[page ?? "build-from-source"];
+---
+
+<BaseLayout lang={lang} messages={{ ...messages, meta: { ...messages.meta, title: `${content.title} - mvnex`, ogTitle: `${content.title} - mvnex` } }}>
+  <main class="px-6 pb-20 pt-32 sm:px-8 sm:pt-40 lg:px-10">
+    <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[17rem_minmax(0,1fr)]">
+      <aside class="hidden lg:block">
+        <div class="sticky top-24 pl-1">
+          {messages.sidebar.map((group) => (
+            <nav class="py-4 first:pt-0 last:pb-0" aria-label={group.title}>
+              <p class="text-sm font-semibold text-zinc-950 dark:text-white">{group.title}</p>
+              <ul class="mt-3 grid gap-2">
+                {group.links.map((link) => (
+                  <li>
+                    <a class="block rounded-md px-2 py-1.5 text-sm text-zinc-500 transition-colors hover:bg-zinc-100 hover:text-zinc-950 dark:text-zinc-400 dark:hover:bg-zinc-900 dark:hover:text-white" href={localizeHref(link.href)}>
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          ))}
+        </div>
+      </aside>
+
+      <article class="min-w-0">
+        <DocsMobileNav lang={lang} groups={messages.sidebar} currentPath={Astro.url.pathname} />
+
+        <p class="text-xs font-semibold uppercase tracking-[0.22em] text-zinc-400">{content.eyebrow}</p>
+        <h1 class="mt-5 max-w-4xl text-5xl font-semibold leading-[0.98] tracking-tight text-zinc-950 dark:text-white sm:text-7xl">
+          {content.title}
+        </h1>
+        {content.description && <p class="mt-6 max-w-3xl text-lg leading-8 text-zinc-500 dark:text-zinc-400">{content.description}</p>}
+        {content.intro && <p class="mt-5 max-w-3xl text-base leading-8 text-zinc-500 dark:text-zinc-400">{content.intro}</p>}
+
+        {content.requirements && (
+          <section class="mt-10">
+            <h2 class="text-xl font-semibold tracking-tight text-zinc-950 dark:text-white">{content.requirementsTitle}</h2>
+            <ul class="mt-5 grid gap-x-10 gap-y-4 text-sm leading-7 text-zinc-600 dark:text-zinc-400 sm:grid-cols-2">
+              {content.requirements.map((item) => (
+                <li class="flex gap-3">
+                  <span class="mt-2 size-1.5 shrink-0 rounded-full bg-sky-500"></span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {content.blocks && (
+          <div class="mt-10 grid gap-10">
+            {content.blocks.map((block, index) => (
+              <section class="grid gap-5 md:grid-cols-[3rem_minmax(0,1fr)]">
+                <span class="font-mono text-sm font-black text-sky-600 dark:text-sky-300">{String(index + 1).padStart(2, "0")}</span>
+                <div class="min-w-0">
+                  <h2 class="text-xl font-semibold tracking-tight text-zinc-950 dark:text-white">{block.title}</h2>
+                  <p class="mt-2 max-w-2xl text-sm leading-7 text-zinc-500 dark:text-zinc-400">{block.description}</p>
+                  <div class="mt-5 max-w-full overflow-hidden rounded-md border border-zinc-800 bg-zinc-950 text-zinc-100 shadow-sm dark:border-zinc-700 dark:bg-[#111827]">
+                    <div class="flex items-center justify-between border-b border-white/10 bg-white/[0.03] px-4 py-2 dark:bg-white/[0.05]">
+                      <span class="font-mono text-xs text-zinc-400">terminal</span>
+                      <button
+                        class="rounded-full px-3 py-1 text-xs font-semibold text-zinc-300 transition-colors hover:bg-white/10 hover:text-white"
+                        type="button"
+                        data-copy-button
+                        data-copy-value={block.code}
+                      >
+                        Copy
+                      </button>
+                    </div>
+                    <pre class="overflow-x-auto p-4 text-sm leading-7"><code>{block.code}</code></pre>
+                  </div>
+                </div>
+              </section>
+            ))}
+          </div>
+        )}
+
+        {content.notes && (
+          <section class="mt-12">
+            <h2 class="text-2xl font-semibold tracking-tight text-zinc-950 dark:text-white">{content.notesTitle}</h2>
+            {content.tree && (
+              <pre class="mt-5 overflow-x-auto rounded-md border border-zinc-800 bg-zinc-950 p-5 text-sm leading-7 text-zinc-100 dark:border-zinc-700 dark:bg-[#111827]"><code>{content.tree}</code></pre>
+            )}
+            <ul class="mt-5 grid gap-4">
+              {content.notes.map((item) => (
+                <li class="text-sm leading-7 text-zinc-600 dark:text-zinc-400">{item}</li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {content.details && (
+          <section class="mt-12">
+            <h2 class="text-2xl font-semibold tracking-tight text-zinc-950 dark:text-white">{content.detailsTitle}</h2>
+            <div class="mt-6 grid gap-6">
+              {content.details.map((item) => (
+                <div class="grid gap-2 border-t border-zinc-200 pt-5 dark:border-zinc-800 sm:grid-cols-[12rem_minmax(0,1fr)]">
+                  <p class="font-mono text-sm font-semibold text-sky-600 dark:text-sky-300">{item.name}</p>
+                  <p class="text-sm leading-7 text-zinc-500 dark:text-zinc-400">{item.description}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {content.behavior && (
+          <section class="mt-12">
+            <h2 class="text-2xl font-semibold tracking-tight text-zinc-950 dark:text-white">{content.behaviorTitle}</h2>
+            <ul class="mt-5 grid gap-4">
+              {content.behavior.map((item) => (
+                <li class="grid gap-3 text-sm leading-7 text-zinc-600 dark:text-zinc-400 sm:grid-cols-[1rem_minmax(0,1fr)]">
+                  <span class="mt-3 size-1.5 rounded-full bg-sky-500" aria-hidden="true"></span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {content.nextLinks && (
+          <section class="mt-12">
+            <h2 class="text-2xl font-semibold tracking-tight text-zinc-950 dark:text-white">{content.nextTitle}</h2>
+            <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              {content.nextLinks.map((link) => (
+                <a class="group inline-flex items-center justify-center rounded-full border border-zinc-300 px-5 py-3 text-sm font-semibold text-zinc-700 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-900" href={localizeHref(link.href)}>
+                  {link.label}
+                  <span class="ml-2 inline-block transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {page === "commands" && content.available && (
+          <section class="mt-10">
+            <h2 class="text-2xl font-semibold tracking-tight text-zinc-950 dark:text-white">{content.availableTitle}</h2>
+            <div class="mt-6 grid gap-4">
+              {content.available.map((command) => (
+                <a class="group rounded-lg border border-zinc-200 bg-white p-6 transition-colors hover:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-zinc-600" href={localizeHref(command.href)}>
+                  <h3 class="font-mono text-base font-semibold text-sky-600 dark:text-sky-300">{command.name}</h3>
+                  <p class="mt-3 text-sm leading-7 text-zinc-500 dark:text-zinc-400">{command.description}</p>
+                  <span class="mt-5 inline-flex text-sm font-semibold text-zinc-950 transition-transform group-hover:translate-x-1 dark:text-white" aria-hidden="true">→</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {page === "commands" && content.planned && (
+          <section class="mt-14">
+            <h2 class="text-2xl font-semibold tracking-tight text-zinc-950 dark:text-white">{content.plannedTitle}</h2>
+            <div class="mt-6 grid gap-6 md:grid-cols-3">
+              {content.planned.map((item) => (
+                <article>
+                  <h3 class="font-mono text-sm font-semibold text-sky-600 dark:text-sky-300">{item.name}</h3>
+                  <p class="mt-2 text-sm leading-7 text-zinc-500 dark:text-zinc-400">{item.description}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {content.items && page !== "commands" && (
+          <ul class="mt-10 grid gap-4">
+            {content.items.map((item, index) => (
+              <li class="grid gap-4 sm:grid-cols-[3rem_minmax(0,1fr)]">
+                <span class="font-mono text-sm font-black text-sky-600 dark:text-sky-300">{String(index + 1).padStart(2, "0")}</span>
+                <span class="text-base leading-8 text-zinc-600 dark:text-zinc-400">{item}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </article>
+    </div>
+    <script>
+      document.querySelectorAll<HTMLButtonElement>("[data-copy-button]").forEach((button) => {
+        const originalLabel = button.textContent || "Copy";
+
+        button.addEventListener("click", async () => {
+          const value = button.dataset.copyValue || "";
+
+          try {
+            await navigator.clipboard.writeText(value);
+            button.textContent = "Copied";
+            window.setTimeout(() => {
+              button.textContent = originalLabel;
+            }, 1600);
+          } catch {
+            button.textContent = "Failed";
+            window.setTimeout(() => {
+              button.textContent = originalLabel;
+            }, 1600);
+          }
+        });
+      });
+    </script>
+  </main>
+</BaseLayout>

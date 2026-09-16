@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "title": "Resources - mvnex",
+    "description": "Links utiles de mvnex, referencias Maven, estado del proyecto y rutas recomendadas de lectura.",
+    "ogTitle": "Resources de mvnex",
+    "ogDescription": "Links y referencias para aprender, usar y seguir mvnex."
+  },
+  "hero": {
+    "eyebrow": "Resources",
+    "title": "Links, referencias y contexto del proyecto.",
+    "description": "Un hub compacto para el repositorio, la documentacion actual, referencias Maven y el estado del proyecto que conviene saber antes de depender de mvnex."
+  },
+  "groups": [
+    {
+      "title": "Links del proyecto",
+      "description": "Lugares principales para revisar el codigo, seguir el trabajo y entender la implementacion actual.",
+      "items": [
+        {
+          "title": "Repositorio de GitHub",
+          "description": "Codigo fuente, issues y desarrollo del proyecto.",
+          "href": "https://github.com/sebas3261/mvnex"
+        },
+        {
+          "title": "Build from source",
+          "description": "El camino soportado actualmente para probar mvnex antes de que existan releases por package manager.",
+          "href": "/docs/build-from-source/"
+        },
+        {
+          "title": "Roadmap",
+          "description": "Areas planeadas de documentacion y producto, incluyendo instalacion y futuras referencias de comandos.",
+          "href": "/docs/roadmap/"
+        }
+      ]
+    },
+    {
+      "title": "Ruta recomendada de lectura",
+      "description": "Un orden practico para entender la CLI sin mezclar el home con documentacion.",
+      "items": [
+        {
+          "title": "Overview de documentacion",
+          "description": "Empieza aqui para ver el mapa completo de docs y los conceptos principales.",
+          "href": "/docs/"
+        },
+        {
+          "title": "Crear un proyecto",
+          "description": "Entiende que pregunta mvnex y que pasa cuando se genera un proyecto.",
+          "href": "/docs/create-project/"
+        },
+        {
+          "title": "Salida generada",
+          "description": "Revisa los archivos Maven, comportamiento del wrapper y comandos de validacion despues de init.",
+          "href": "/docs/generated-output/"
+        },
+        {
+          "title": "Referencia de init",
+          "description": "Detalles del comando, defaults, flags, ejemplos y comportamiento interactivo.",
+          "href": "/docs/commands/init/"
+        }
+      ]
+    },
+    {
+      "title": "Referencias Maven",
+      "description": "Referencias externas que explican las piezas estandar de Maven que mvnex conserva.",
+      "items": [
+        {
+          "title": "Guia inicial de Maven",
+          "description": "Guia oficial de Maven sobre estructura de proyecto, ciclo de vida y comandos comunes.",
+          "href": "https://maven.apache.org/guides/getting-started/"
+        },
+        {
+          "title": "Referencia de Maven POM",
+          "description": "Referencia oficial de pom.xml, que sigue siendo la fuente de verdad en proyectos mvnex.",
+          "href": "https://maven.apache.org/pom.html"
+        },
+        {
+          "title": "Maven Wrapper",
+          "description": "Contexto sobre ejecutar Maven mediante scripts locales al proyecto.",
+          "href": "https://maven.apache.org/wrapper/"
+        }
+      ]
+    }
+  ],
+  "status": {
+    "title": "Estado actual del proyecto",
+    "description": "mvnex se documenta aqui como una CLI compilada desde codigo fuente por ahora. Las instrucciones de Homebrew, winget y releases empaquetadas deben agregarse solo cuando esos caminos existan realmente.",
+    "items": [
+      "Disponible hoy: compilar desde codigo fuente y usar mvnex init.",
+      "Todavia no documentado como disponible: Homebrew, winget, npm o instalacion por binario empaquetado.",
+      "Siguiente crecimiento de docs: comandos de dependencias, configuracion, release notes y flujo de contribucion."
+    ]
+  },
+  "footer": {
+    "tagline": "Construido como documentacion Astro separada con la misma identidad visual del portafolio.",
+    "copyright": "docs de mvnex"
+  }
+}

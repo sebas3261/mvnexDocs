@@ -1,0 +1,21 @@
+{
+  "brandHomeLabel": "Inicio de la documentacion de mvnex",
+  "mainNavigationLabel": "Navegacion principal",
+  "mobileNavigationLabel": "Navegacion movil",
+  "navigationMenuLabel": "Menu de navegacion",
+  "switchToDark": "Cambiar a tema oscuro",
+  "switchToLight": "Cambiar a tema claro",
+  "openMenu": "Abrir menu",
+  "closeMenu": "Cerrar menu",
+  "languageCode": "ES",
+  "languages": {
+    "en": "Ingles",
+    "es": "Espanol"
+  },
+  "links": {
+    "home": "Inicio",
+    "docs": "Documentation",
+    "resources": "Resources"
+  },
+  "cta": "GitHub"
+}

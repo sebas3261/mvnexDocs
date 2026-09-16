@@ -1,0 +1,559 @@
+{
+  "meta": {
+    "title": "Documentation - mvnex",
+    "description": "Build mvnex from source, create projects, understand commands, and learn how the CLI fits into Maven workflows.",
+    "ogTitle": "mvnex Documentation",
+    "ogDescription": "Everything you need to start using mvnex."
+  },
+  "hero": {
+    "eyebrow": "Documentation",
+    "title": "Everything you need to use mvnex.",
+    "description": "Build the CLI from source, create your first standard Maven project, learn the current command surface, and understand how mvnex keeps Maven at the center."
+  },
+  "cta": {
+    "primary": "Build from source",
+    "secondary": "View repository"
+  },
+  "sidebar": [
+    {
+      "title": "Start",
+      "links": [
+        {
+          "label": "Overview",
+          "href": "/docs/"
+        },
+        {
+          "label": "Build from source",
+          "href": "/docs/build-from-source/"
+        },
+        {
+          "label": "Create a project",
+          "href": "/docs/create-project/"
+        },
+        {
+          "label": "Generated output",
+          "href": "/docs/generated-output/"
+        }
+      ]
+    },
+    {
+      "title": "Commands",
+      "links": [
+        {
+          "label": "Command overview",
+          "href": "/docs/commands/"
+        },
+        {
+          "label": "init",
+          "href": "/docs/commands/init/"
+        }
+      ]
+    },
+    {
+      "title": "Project",
+      "links": [
+        {
+          "label": "Principles",
+          "href": "/docs/principles/"
+        },
+        {
+          "label": "Roadmap",
+          "href": "/docs/roadmap/"
+        }
+      ]
+    }
+  ],
+  "overviewCards": [
+    {
+      "title": "Build from source",
+      "description": "For now, use mvnex from source while official package-manager releases are not available.",
+      "href": "/docs/build-from-source/"
+    },
+    {
+      "title": "Create a project",
+      "description": "Use mvnex init to generate a standard Maven project with validation and optional Maven Wrapper files.",
+      "href": "/docs/create-project/"
+    },
+    {
+      "title": "Work from source",
+      "description": "If you are contributing or testing locally, clone the repository and build the native CLI with CMake.",
+      "href": "/docs/build-from-source/"
+    }
+  ],
+  "sections": [
+    {
+      "id": "build-from-source",
+      "eyebrow": "Build from source",
+      "title": "Build mvnex from source",
+      "description": "mvnex does not have an official Homebrew, winget, or packaged release yet. The current way to use it is to clone the repository and build the native CLI locally.",
+      "intro": "This guide walks through the source-based workflow used today. It is useful for trying mvnex before packaged releases exist, testing local changes, or contributing to the CLI.",
+      "requirementsTitle": "Prerequisites",
+      "requirements": [
+        "Git, to clone the repository.",
+        "CMake, to configure and generate the build files.",
+        "A C++ compiler supported by your platform.",
+        "Maven or Maven Wrapper support for building generated projects."
+      ],
+      "blocks": [
+        {
+          "title": "Clone the repository",
+          "description": "Get the source code locally.",
+          "code": "git clone https://github.com/sebas3261/mvnex.git\ncd mvnex"
+        },
+        {
+          "title": "Build the CLI",
+          "description": "Configure and compile with CMake.",
+          "code": "cmake -S . -B build\ncmake --build build"
+        },
+        {
+          "title": "Run mvnex",
+          "description": "Use the local binary to create a Maven project.",
+          "code": "./build/mvnex init my-app"
+        }
+      ],
+      "notesTitle": "After building",
+      "notes": [
+        "The binary lives in the local build directory.",
+        "Commands shown in the docs assume mvnex is available on your PATH. When running from source, use ./build/mvnex or add the build output to PATH manually.",
+        "Packaged installation commands will be documented separately once official releases exist."
+      ],
+      "nextTitle": "Next steps",
+      "nextLinks": [
+        {
+          "label": "Create a project",
+          "href": "/docs/create-project/"
+        },
+        {
+          "label": "Commands",
+          "href": "/docs/commands/"
+        }
+      ]
+    },
+    {
+      "id": "create-project",
+      "eyebrow": "First workflow",
+      "title": "Create a Maven project",
+      "description": "mvnex init creates a standard Maven project and protects the boring setup details: naming, package paths, Java version, wrapper files, and a first source entry point.",
+      "intro": "You can run it interactively when exploring, or pass flags when you already know the configuration. Either way, the output is a normal Maven project.",
+      "requirementsTitle": "What mvnex asks for",
+      "requirements": [
+        "Project name, used for the directory and generated artifactId.",
+        "Maven groupId, used for package generation and pom.xml metadata.",
+        "Java version, written into the generated Maven configuration.",
+        "Whether Maven Wrapper files should be generated."
+      ],
+      "blocks": [
+        {
+          "title": "Interactive",
+          "description": "Let mvnex ask for project name, groupId, Java version, package, and wrapper preference.",
+          "code": "mvnex init"
+        },
+        {
+          "title": "With flags",
+          "description": "Provide values directly when scripting or repeating setup.",
+          "code": "mvnex init my-app --group-id com.example --java 21"
+        },
+        {
+          "title": "Build",
+          "description": "Use the generated Maven Wrapper when available.",
+          "code": "cd my-app\n./mvnw package"
+        }
+      ],
+      "notesTitle": "What gets generated",
+      "tree": "my-app/\n├── .mvn/\n│   └── wrapper/\n│       └── maven-wrapper.properties\n├── mvnw\n├── mvnw.cmd\n├── pom.xml\n└── src/\n    ├── main/\n    │   └── java/\n    │       └── com/example/myapp/\n    │           └── Main.java\n    └── test/\n        └── java/\n            └── com/example/myapp/",
+      "notes": [
+        "pom.xml with standard Maven project metadata.",
+        "src/main/java with a generated Main.java in the selected package.",
+        "src/test/java prepared for tests in the same package structure.",
+        "Maven Wrapper files when wrapper generation is enabled: mvnw, mvnw.cmd, and .mvn/wrapper configuration."
+      ],
+      "nextTitle": "Next steps",
+      "nextLinks": [
+        {
+          "label": "Generated output",
+          "href": "/docs/generated-output/"
+        },
+        {
+          "label": "Commands",
+          "href": "/docs/commands/"
+        }
+      ],
+      "behaviorTitle": "Maven and wrapper behavior",
+      "behavior": [
+        "If Maven is installed, mvnex can use it to generate wrapper files when needed.",
+        "If Maven is not installed, mvnex falls back to generating wrapper files so the project can still build with ./mvnw.",
+        "Use --no-wrapper only when you intentionally want to rely on a local Maven installation."
+      ]
+    }
+  ],
+  "commands": {
+    "id": "commands",
+    "eyebrow": "Command reference",
+    "title": "Command overview",
+    "description": "Browse the command surface that exists today and the commands planned for future Maven workflows.",
+    "synopsisTitle": "Synopsis",
+    "synopsis": "mvnex <command> [arguments] [options]",
+    "plannedTitle": "Planned commands",
+    "planned": [
+      {
+        "name": "mvnex add",
+        "description": "Add dependencies using short names or explicit Maven coordinates."
+      },
+      {
+        "name": "mvnex remove",
+        "description": "Remove dependencies from pom.xml while keeping Maven as the source of truth."
+      },
+      {
+        "name": "mvnex update / outdated",
+        "description": "Inspect and update dependencies when those workflows are implemented."
+      }
+    ],
+    "availableTitle": "Available commands",
+    "available": [
+      {
+        "name": "mvnex init",
+        "href": "/docs/commands/init/",
+        "description": "Create a standard Maven project with generated source structure, pom.xml, validation, and optional Maven Wrapper files."
+      }
+    ]
+  },
+  "output": {
+    "id": "output",
+    "eyebrow": "Generated output",
+    "title": "What mvnex creates.",
+    "description": "A project generated by mvnex is still a normal Maven project. The generated files are meant to be readable by Maven, IDEs, CI systems, and developers who never install mvnex.",
+    "intro": "This page explains the scaffold created by mvnex init, why each file exists, and how to verify the project after generation.",
+    "notesTitle": "Project tree",
+    "tree": "my-app/\n├── pom.xml\n├── mvnw\n├── mvnw.cmd\n├── .mvn/\n│   └── wrapper/\n│       ├── maven-wrapper.jar\n│       └── maven-wrapper.properties\n└── src/\n    ├── main/\n    │   └── java/\n    │       └── com/example/myapp/\n    │           └── App.java\n    └── test/\n        └── java/\n            └── com/example/myapp/",
+    "notes": [
+      "The exact Java package path depends on the groupId, artifactId, and optional --package value selected during init.",
+      "Wrapper files are present by default. If you create the project with --no-wrapper, mvnw, mvnw.cmd, and .mvn/wrapper are omitted.",
+      "The generated output intentionally stays close to standard Maven conventions, so build tools and IDEs do not need mvnex-specific support."
+    ],
+    "detailsTitle": "Files and directories",
+    "details": [
+      {
+        "name": "pom.xml",
+        "description": "The Maven source of truth. It contains the selected groupId, artifactId, version, Java compiler settings, and the baseline project metadata."
+      },
+      {
+        "name": "src/main/java",
+        "description": "The production source tree. mvnex creates the package folder and starter Java class here."
+      },
+      {
+        "name": "src/test/java",
+        "description": "The test source tree. It mirrors the package layout so tests can be added without changing the Maven structure later."
+      },
+      {
+        "name": ".mvn/wrapper",
+        "description": "Maven Wrapper configuration. It pins how the wrapper downloads and runs Maven for this project."
+      },
+      {
+        "name": "mvnw",
+        "description": "Unix/macOS wrapper script. Use it when Maven is not installed globally or when CI should use the project wrapper."
+      },
+      {
+        "name": "mvnw.cmd",
+        "description": "Windows wrapper script with the same purpose as mvnw, but for Command Prompt and PowerShell workflows."
+      }
+    ],
+    "behaviorTitle": "How to read the output",
+    "behavior": [
+      "The generated pom.xml is authoritative. mvnex does not keep hidden project state somewhere else.",
+      "The package path is derived from the selected Java package, not from a custom mvnex format.",
+      "When wrapper generation is enabled, users can run the project without installing Maven globally.",
+      "When wrapper generation is disabled, the project expects mvn to be available on PATH.",
+      "You can edit the generated project like any other Maven project after creation."
+    ],
+    "blocks": [
+      {
+        "title": "Enter the generated project",
+        "description": "Move into the directory created by mvnex init.",
+        "code": "cd my-app"
+      },
+      {
+        "title": "Validate with Maven Wrapper",
+        "description": "Use this when wrapper files were generated. This is the default mvnex init output.",
+        "code": "./mvnw test"
+      },
+      {
+        "title": "Validate with global Maven",
+        "description": "Use this when you created the project with --no-wrapper or already have Maven installed.",
+        "code": "mvn test"
+      },
+      {
+        "title": "Package the app",
+        "description": "Build the project artifact using the same standard Maven lifecycle used by existing Java projects.",
+        "code": "./mvnw package"
+      }
+    ],
+    "nextTitle": "Next steps",
+    "nextLinks": [
+      {
+        "label": "init reference",
+        "href": "/docs/commands/init/"
+      },
+      {
+        "label": "Command overview",
+        "href": "/docs/commands/"
+      }
+    ]
+  },
+  "principles": {
+    "id": "principles",
+    "eyebrow": "Project principles",
+    "title": "Maven stays Maven.",
+    "description": "mvnex is designed as a helper around standard Maven projects, not as a new project format or hidden build system.",
+    "intro": "These principles guide which features belong in mvnex, how generated projects should behave, and how the CLI should evolve without making Java projects harder to understand.",
+    "detailsTitle": "Design principles",
+    "details": [
+      {
+        "name": "pom.xml is authoritative",
+        "description": "Project metadata, dependencies, plugins, packaging, and compiler settings live in pom.xml. mvnex can edit or generate that file, but it should not move truth into a private config format."
+      },
+      {
+        "name": "Maven lifecycle remains intact",
+        "description": "Generated projects must keep working with normal Maven commands such as mvn compile, mvn test, and mvn package."
+      },
+      {
+        "name": "No lock-in",
+        "description": "A developer should be able to delete mvnex and continue working on the generated project with Maven, an IDE, or CI."
+      },
+      {
+        "name": "Commands reduce friction",
+        "description": "A command belongs in mvnex only when it removes repetitive setup or makes a common Maven workflow clearer."
+      },
+      {
+        "name": "Generated output is readable",
+        "description": "The files created by mvnex should look familiar to Java developers. There should be no surprising generated structure that only mvnex understands."
+      },
+      {
+        "name": "Interactive when useful",
+        "description": "Prompts should help users make choices, but flags should exist for scripts, CI, and developers who already know the values they want."
+      }
+    ],
+    "behaviorTitle": "What this means in practice",
+    "behavior": [
+      "mvnex init creates a standard Maven project instead of a mvnex-specific workspace.",
+      "Maven Wrapper is generated to improve portability, not to replace Maven itself.",
+      "Future dependency commands should update pom.xml directly and leave it understandable.",
+      "Future install paths should make mvnex easier to get, while generated projects remain independent from the installer.",
+      "Documentation should explain the Maven result, not only the mvnex command that produced it."
+    ],
+    "nextTitle": "Next steps",
+    "nextLinks": [
+      {
+        "label": "Generated output",
+        "href": "/docs/generated-output/"
+      },
+      {
+        "label": "Roadmap",
+        "href": "/docs/roadmap/"
+      }
+    ]
+  },
+  "roadmap": {
+    "id": "roadmap",
+    "eyebrow": "Roadmap",
+    "title": "Where mvnex goes next.",
+    "description": "The current documentation reflects the source-based workflow and the init command. The roadmap shows the areas that should become first-class once the CLI grows.",
+    "intro": "The order is intentionally practical: make mvnex easy to install, make project creation solid, then expand into the Maven workflows that create repeated friction.",
+    "detailsTitle": "Planned areas",
+    "details": [
+      {
+        "name": "Package-manager install",
+        "description": "Document official Homebrew support for macOS and an equivalent Windows path when those releases exist. Until then, Build from source remains the source of truth."
+      },
+      {
+        "name": "Dependency workflows",
+        "description": "Add focused pages for adding, removing, inspecting, and updating dependencies while keeping pom.xml readable and authoritative."
+      },
+      {
+        "name": "Command reference",
+        "description": "Give every command its own page with synopsis, flags, defaults, examples, generated changes, and copyable commands."
+      },
+      {
+        "name": "Configuration reference",
+        "description": "If mvnex gains user or project configuration, document the file format, precedence rules, defaults, and migration behavior."
+      },
+      {
+        "name": "Release notes",
+        "description": "Track changes that affect commands, generated project structure, install paths, and compatibility expectations."
+      },
+      {
+        "name": "Contribution guide",
+        "description": "Explain how to build mvnex locally, run checks, test generated Maven projects, and propose new command behavior."
+      }
+    ],
+    "behaviorTitle": "Documentation rules while the project grows",
+    "behavior": [
+      "Do not document Homebrew, winget, or packaged installs as available until they actually exist.",
+      "Keep source-based usage visible while mvnex is still distributed from the repository.",
+      "When a command becomes available, move it from planned workflow to its own command page.",
+      "Each new page should exist in English and Spanish with equivalent structure.",
+      "Examples should prefer real commands users can copy and run."
+    ],
+    "nextTitle": "Current useful pages",
+    "nextLinks": [
+      {
+        "label": "Build from source",
+        "href": "/docs/build-from-source/"
+      },
+      {
+        "label": "init reference",
+        "href": "/docs/commands/init/"
+      }
+    ]
+  },
+  "footer": {
+    "tagline": "Built as separate Astro documentation with the same visual identity as the portfolio.",
+    "copyright": "mvnex docs"
+  },
+  "commandPages": {
+    "init": {
+      "id": "init",
+      "eyebrow": "Command reference",
+      "title": "init",
+      "description": "Create a standard Maven project with generated source structure, pom.xml, validation, and optional Maven Wrapper files.",
+      "synopsisTitle": "Synopsis",
+      "synopsis": "mvnex init [project-name] [options]",
+      "name": "mvnex init",
+      "status": "Available",
+      "summary": "Create a standard Maven project with generated source structure, pom.xml, validation, and optional Maven Wrapper files.",
+      "usageTitle": "Usage",
+      "usage": [
+        "mvnex init",
+        "mvnex init my-app",
+        "mvnex init my-app --group-id com.example --java 21",
+        "mvnex init my-app --package com.example.app --no-wrapper"
+      ],
+      "examplesTitle": "Copy and run",
+      "examples": [
+        {
+          "title": "Start the interactive flow",
+          "description": "Use this when you want mvnex to ask for each required value and show the defaults before creating files.",
+          "code": "mvnex init"
+        },
+        {
+          "title": "Create a project with the default package",
+          "description": "The positional name becomes the directory name, artifactId, and the base for the generated package.",
+          "code": "mvnex init my-app"
+        },
+        {
+          "title": "Set Maven coordinates explicitly",
+          "description": "Use flags when you already know the groupId and Java version and want to avoid prompts.",
+          "code": "mvnex init my-app --group-id com.example --java 21"
+        },
+        {
+          "title": "Use a custom Java package",
+          "description": "Override the package when the Maven groupId and Java package should not be identical.",
+          "code": "mvnex init my-app --package com.example.app"
+        },
+        {
+          "title": "Skip Maven Wrapper",
+          "description": "Generate a plain Maven project that expects mvn to be available on the machine.",
+          "code": "mvnex init my-app --no-wrapper"
+        }
+      ],
+      "interactiveTitle": "Interactive mode",
+      "interactive": [
+        "When you run mvnex init without enough flags, mvnex opens a guided prompt instead of guessing silently.",
+        "It asks for the project name when it was not provided as a positional argument.",
+        "It proposes defaults for groupId, package name, Java version, and Maven Wrapper generation before writing files.",
+        "Each answer is validated immediately, so invalid Maven coordinates, Java package names, or unsupported Java versions are caught before the project is created.",
+        "At the end of the flow, mvnex creates the directory, writes pom.xml, creates the Java source and test folders, and adds wrapper files unless --no-wrapper was selected."
+      ],
+      "defaultsTitle": "Defaults",
+      "defaults": [
+        {
+          "name": "project name",
+          "value": "required",
+          "description": "Read from the positional argument or requested interactively."
+        },
+        {
+          "name": "artifactId",
+          "value": "project name",
+          "description": "Uses the normalized project name so the Maven artifact matches the generated directory."
+        },
+        {
+          "name": "groupId",
+          "value": "com.example",
+          "description": "A safe starter coordinate that should be replaced with your real domain or organization."
+        },
+        {
+          "name": "package",
+          "value": "groupId + artifactId",
+          "description": "Generated from Maven coordinates unless --package is provided."
+        },
+        {
+          "name": "java",
+          "value": "17",
+          "description": "Creates a modern baseline for new Maven projects while still being broadly compatible."
+        },
+        {
+          "name": "wrapper",
+          "value": "enabled",
+          "description": "Adds Maven Wrapper files by default so the project can build without requiring a global Maven install."
+        }
+      ],
+      "argumentsTitle": "Arguments",
+      "arguments": [
+        {
+          "name": "project name",
+          "description": "Optional positional name for the new project directory. If omitted, mvnex asks for it interactively."
+        }
+      ],
+      "optionsTitle": "Options",
+      "options": [
+        {
+          "flag": "-g, --group-id <id>",
+          "description": "Set the Maven groupId used in pom.xml and package generation."
+        },
+        {
+          "flag": "-p, --package <name>",
+          "description": "Override the generated Java package name."
+        },
+        {
+          "flag": "-j, --java <version>",
+          "description": "Set the Java version for the generated project."
+        },
+        {
+          "flag": "--no-wrapper",
+          "description": "Skip Maven Wrapper generation and rely on a local Maven installation."
+        },
+        {
+          "flag": "-h, --help",
+          "description": "Show help for the init command."
+        }
+      ],
+      "behaviorTitle": "Behavior",
+      "behavior": [
+        "Protects against creating a project in an existing directory.",
+        "Validates project names, package names, and Java versions.",
+        "Generates a Maven-standard directory structure.",
+        "Generates Maven Wrapper files by default when wrapper generation is enabled.",
+        "Falls back to internal wrapper generation when global Maven is unavailable."
+      ],
+      "generatedTitle": "What init creates",
+      "generated": [
+        "A new project directory named after the project.",
+        "pom.xml with the selected groupId, artifactId, version, and Java compiler settings.",
+        "src/main/java and src/test/java folders that match the generated package.",
+        "A starter application class in the main source tree.",
+        "Maven Wrapper files when wrapper generation is enabled.",
+        "A project that remains standard Maven: removing mvnex does not make the generated project unusable."
+      ],
+      "nextTitle": "Next steps",
+      "nextLinks": [
+        {
+          "label": "Create a project",
+          "href": "/docs/create-project/"
+        },
+        {
+          "label": "Generated output",
+          "href": "/docs/generated-output/"
+        }
+      ]
+    }
+  }
+}

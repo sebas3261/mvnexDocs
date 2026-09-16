@@ -1,0 +1,147 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import en from "../../messages/en/home.json";
+import es from "../../messages/es/home.json";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "es" } }];
+}
+
+const lang = Astro.params.lang === "es" ? "es" : "en";
+const messages = lang === "es" ? es : en;
+---
+
+<BaseLayout lang={lang} messages={messages}>
+  <main class="overflow-x-hidden">
+    <section class="grid min-h-[calc(100svh-4rem)] place-items-center px-6 py-24 sm:px-8 lg:px-10">
+      <div class="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[minmax(0,1.05fr)_minmax(20rem,0.72fr)]">
+        <div class="docs-reveal">
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-zinc-400">{messages.hero.eyebrow}</p>
+          <h1 class="mt-5 max-w-5xl text-5xl font-semibold leading-[0.96] tracking-tight text-zinc-950 dark:text-white sm:text-7xl lg:text-8xl">
+            {messages.hero.title}
+          </h1>
+          <p class="mt-6 max-w-2xl text-lg leading-8 text-zinc-500 dark:text-zinc-400 sm:text-xl">
+            {messages.hero.description}
+          </p>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a class="inline-flex items-center justify-center rounded-full bg-zinc-950 px-6 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5 hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-100" href="https://github.com/sebas3261/mvnex" target="_blank" rel="noopener noreferrer">
+              {messages.hero.primaryCta}
+              <span class="ml-2" aria-hidden="true">→</span>
+            </a>
+            <a class="inline-flex items-center justify-center rounded-full border border-zinc-300 px-6 py-3 text-sm font-semibold text-zinc-700 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-900" href={`/${lang}/docs/`}>
+              {messages.hero.secondaryCta}
+            </a>
+          </div>
+        </div>
+
+        <div class="docs-reveal terminal-window overflow-hidden rounded-md border border-zinc-800 bg-zinc-950 text-zinc-100 shadow-xl shadow-zinc-950/10" style="animation-delay: 120ms">
+          <div class="flex items-center gap-2 border-b border-white/10 px-4 py-3">
+            <span class="size-2.5 rounded-full bg-red-500"></span>
+            <span class="size-2.5 rounded-full bg-amber-500"></span>
+            <span class="size-2.5 rounded-full bg-emerald-500"></span>
+          </div>
+          <pre class="overflow-x-auto px-5 py-6 text-sm leading-8"><code>{messages.terminal.lines.map((line) => `$ ${line}`).join("\n")}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="scroll-reveal border-t border-zinc-200 bg-white px-6 py-16 dark:border-zinc-800 dark:bg-zinc-950 sm:px-8 sm:py-24 lg:px-10">
+      <div class="mx-auto max-w-7xl">
+        <div class="max-w-3xl">
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-zinc-400">{messages.intro.eyebrow}</p>
+          <h2 class="mt-3 text-3xl font-bold tracking-tight text-zinc-950 dark:text-white sm:text-5xl">{messages.intro.title}</h2>
+          <p class="mt-4 text-base leading-8 text-zinc-500 dark:text-zinc-400">{messages.intro.description}</p>
+        </div>
+        <div class="mt-12 grid gap-10 md:grid-cols-3">
+          {messages.highlights.map((item, index) => (
+            <article class="scroll-reveal" style={`--reveal-delay: ${index * 80}ms`}>
+              <h3 class="text-base font-semibold text-zinc-950 dark:text-white">{item.title}</h3>
+              <p class="mt-3 text-sm leading-7 text-zinc-500 dark:text-zinc-400">{item.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="scroll-reveal border-t border-zinc-200 bg-zinc-50 px-6 py-16 dark:border-zinc-800 dark:bg-zinc-900/30 sm:px-8 sm:py-24 lg:px-10">
+      <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-zinc-400">{messages.problem.eyebrow}</p>
+          <h2 class="mt-3 text-3xl font-bold tracking-tight text-zinc-950 dark:text-white sm:text-5xl">{messages.problem.title}</h2>
+        </div>
+        <div>
+          <p class="text-base leading-8 text-zinc-500 dark:text-zinc-400">{messages.problem.description}</p>
+          <div class="mt-8 grid gap-6">
+            {messages.problem.points.map((point, index) => (
+              <div class="scroll-reveal grid gap-4 sm:grid-cols-[3rem_minmax(0,1fr)]" style={`--reveal-delay: ${index * 70}ms`}>
+                <span class="font-mono text-sm font-black text-sky-600 dark:text-sky-300">{String(index + 1).padStart(2, "0")}</span>
+                <p class="text-base font-medium leading-7 text-zinc-700 dark:text-zinc-300">{point}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="scroll-reveal border-t border-zinc-200 bg-white px-6 py-16 dark:border-zinc-800 dark:bg-zinc-950 sm:px-8 sm:py-24 lg:px-10">
+      <div class="mx-auto max-w-7xl">
+        <div class="max-w-3xl">
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-zinc-400">{messages.promise.eyebrow}</p>
+          <h2 class="mt-3 text-3xl font-bold tracking-tight text-zinc-950 dark:text-white sm:text-5xl">{messages.promise.title}</h2>
+          <p class="mt-4 text-base leading-8 text-zinc-500 dark:text-zinc-400">{messages.promise.description}</p>
+        </div>
+        <div class="mt-12 grid gap-10 md:grid-cols-3">
+          {messages.promise.items.map((item, index) => (
+            <article class="scroll-reveal" style={`--reveal-delay: ${index * 80}ms`}>
+              <h3 class="text-base font-semibold text-zinc-950 dark:text-white">{item.title}</h3>
+              <p class="mt-3 text-sm leading-7 text-zinc-500 dark:text-zinc-400">{item.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="scroll-reveal border-t border-zinc-200 bg-zinc-50 px-6 py-16 dark:border-zinc-800 dark:bg-zinc-900/30 sm:px-8 sm:py-24 lg:px-10">
+      <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.68fr)] lg:items-start">
+        <div class="max-w-3xl">
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-zinc-400">{messages.roadmap.eyebrow}</p>
+          <h2 class="mt-3 text-3xl font-bold tracking-tight text-zinc-950 dark:text-white sm:text-5xl">{messages.roadmap.title}</h2>
+        </div>
+        <div class="grid gap-6">
+          {messages.roadmap.items.map((item, index) => (
+            <div class="scroll-reveal grid grid-cols-[2rem_minmax(0,1fr)] gap-4" style={`--reveal-delay: ${index * 70}ms`}>
+              <span class="font-mono text-sm font-black text-sky-600 dark:text-sky-300">{String(index + 1).padStart(2, "0")}</span>
+              <p class="text-lg font-semibold leading-7 text-zinc-800 dark:text-zinc-200">{item}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="scroll-reveal border-t border-zinc-200 bg-white px-6 py-16 dark:border-zinc-800 dark:bg-zinc-950 sm:px-8 sm:py-24 lg:px-10">
+      <div class="mx-auto max-w-7xl">
+        <p class="text-xs font-semibold uppercase tracking-[0.22em] text-zinc-400">{messages.audience.eyebrow}</p>
+        <div class="mt-3 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.62fr)] lg:items-end">
+          <h2 class="text-3xl font-bold tracking-tight text-zinc-950 dark:text-white sm:text-5xl">{messages.audience.title}</h2>
+          <p class="text-base leading-8 text-zinc-500 dark:text-zinc-400">{messages.audience.description}</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    const revealItems = document.querySelectorAll<HTMLElement>(".scroll-reveal");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.18, rootMargin: "0px 0px -8% 0px" }
+    );
+
+    revealItems.forEach((item) => observer.observe(item));
+  </script>
+</BaseLayout>

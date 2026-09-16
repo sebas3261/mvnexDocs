@@ -1,0 +1,17 @@
+---
+import NavBarReact from "./NavBar";
+import en from "../messages/en/navbar.json";
+import es from "../messages/es/navbar.json";
+
+const { lang = "en", localizedPaths } = Astro.props;
+const messages = lang === "es" ? es : en;
+const currentPath = Astro.url.pathname;
+---
+
+<NavBarReact
+  client:load
+  lang={lang}
+  messages={messages}
+  currentPath={currentPath}
+  localizedPaths={localizedPaths}
+/>

@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "title": "Resources - mvnex",
+    "description": "Useful mvnex links, Maven references, project status, and recommended reading paths.",
+    "ogTitle": "mvnex Resources",
+    "ogDescription": "Links and references for learning, using, and following mvnex."
+  },
+  "hero": {
+    "eyebrow": "Resources",
+    "title": "Links, references, and project context.",
+    "description": "A compact hub for the repository, current docs, Maven references, and the project status users should know before relying on mvnex."
+  },
+  "groups": [
+    {
+      "title": "Project links",
+      "description": "Primary places to inspect the source, follow work, and understand the current implementation.",
+      "items": [
+        {
+          "title": "GitHub repository",
+          "description": "Source code, issues, and project development.",
+          "href": "https://github.com/sebas3261/mvnex"
+        },
+        {
+          "title": "Build from source",
+          "description": "The current supported path for trying mvnex before package-manager releases exist.",
+          "href": "/docs/build-from-source/"
+        },
+        {
+          "title": "Roadmap",
+          "description": "Planned documentation and product areas, including install paths and future command references.",
+          "href": "/docs/roadmap/"
+        }
+      ]
+    },
+    {
+      "title": "Recommended reading path",
+      "description": "A practical order for understanding the CLI without mixing the home page with documentation.",
+      "items": [
+        {
+          "title": "Documentation overview",
+          "description": "Start here for the full docs map and the main concepts.",
+          "href": "/docs/"
+        },
+        {
+          "title": "Create a project",
+          "description": "Understand what mvnex asks for and what happens when a project is generated.",
+          "href": "/docs/create-project/"
+        },
+        {
+          "title": "Generated output",
+          "description": "Review the Maven files, wrapper behavior, and validation commands after init runs.",
+          "href": "/docs/generated-output/"
+        },
+        {
+          "title": "init reference",
+          "description": "Command-specific details, defaults, flags, examples, and interactive behavior.",
+          "href": "/docs/commands/init/"
+        }
+      ]
+    },
+    {
+      "title": "Maven references",
+      "description": "External references that explain the standard Maven pieces mvnex keeps intact.",
+      "items": [
+        {
+          "title": "Maven getting started guide",
+          "description": "Official Maven guide for project structure, lifecycle basics, and common commands.",
+          "href": "https://maven.apache.org/guides/getting-started/"
+        },
+        {
+          "title": "Maven POM reference",
+          "description": "Official reference for the pom.xml file that remains the source of truth in mvnex projects.",
+          "href": "https://maven.apache.org/pom.html"
+        },
+        {
+          "title": "Maven Wrapper",
+          "description": "Background on running Maven through project-local wrapper scripts.",
+          "href": "https://maven.apache.org/wrapper/"
+        }
+      ]
+    }
+  ],
+  "status": {
+    "title": "Current project status",
+    "description": "mvnex is documented here as a source-built CLI for now. Homebrew, winget, and packaged release instructions should be added only when those paths actually exist.",
+    "items": [
+      "Available today: build from source and use mvnex init.",
+      "Not documented as available yet: Homebrew, winget, npm, or packaged binary installation.",
+      "Next documentation growth: dependency commands, configuration, release notes, and contribution workflow."
+    ]
+  },
+  "footer": {
+    "tagline": "Built as separate Astro documentation with the same visual identity as the portfolio.",
+    "copyright": "mvnex docs"
+  }
+}
