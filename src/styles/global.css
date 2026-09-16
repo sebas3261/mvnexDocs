@@ -16,11 +16,13 @@
 
 .docs-reveal {
   animation: docs-fade-up 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: opacity, transform;
 }
 
 .scroll-reveal {
   opacity: 0;
   transform: translateY(18px);
+  will-change: opacity, transform;
   transition:
     opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
     transform 700ms cubic-bezier(0.22, 1, 0.36, 1);

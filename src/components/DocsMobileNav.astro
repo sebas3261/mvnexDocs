@@ -102,6 +102,10 @@ function isActive(href: string) {
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape" && drawer.classList.contains("is-open")) closeDrawer();
       });
+      window.addEventListener("pageshow", closeDrawer);
+      window.addEventListener("resize", () => {
+        if (window.innerWidth >= 1024 && drawer.classList.contains("is-open")) closeDrawer();
+      });
     });
   </script>
 </div>

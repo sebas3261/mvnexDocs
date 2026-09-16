@@ -83,7 +83,7 @@ export default function NavBar({ lang, currentPath, localizedPaths, messages }: 
     function handleScroll() {
       if (menuOpen) return;
 
-      const currentY = window.scrollY;
+      const currentY = Math.max(0, window.scrollY);
       const atTop = currentY < SCROLL_THRESHOLD;
       const scrollingUp = currentY < lastScrollY.current;
 
@@ -92,7 +92,7 @@ export default function NavBar({ lang, currentPath, localizedPaths, messages }: 
       lastScrollY.current = currentY;
     }
 
-    lastScrollY.current = window.scrollY;
+    lastScrollY.current = Math.max(0, window.scrollY);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -109,7 +109,31 @@ export default function NavBar({ lang, currentPath, localizedPaths, messages }: 
       setHidden(false);
       lastScrollY.current = window.scrollY;
     }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [menuOpen]);
+
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth >= 768) {
+        setMenuOpen(false);
+      }
+    }
+
+    function handlePageShow() {
+      document.body.style.overflow = "";
+      setMenuOpen(false);
+    }
+
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("pageshow", handlePageShow);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("pageshow", handlePageShow);
+    };
+  }, []);
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
