@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import NavBar from "../components/NavBar.astro";
+import PostHog from "../components/PostHog.astro";
 
 interface Props {
   lang: "en" | "es";
@@ -132,7 +133,9 @@ const footerColumns = [
     <meta property="og:locale:alternate" content={lang === "es" ? "en_US" : "es_CO"} />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={messages.meta.ogTitle} />
-    <meta name="twitter:description" content={messages.meta.ogDescription} />
+    <!-- PostHog Analytics -->
+    <PostHog />
+
     <script is:inline>
       (function () {
         var stored = null;
