@@ -59,7 +59,10 @@ export default function NavBar({ lang, currentPath, localizedPaths, messages }: 
   const SCROLL_THRESHOLD = 10;
 
   useEffect(() => {
-    const stored = localStorage.getItem("theme");
+    let stored: string | null = null;
+    try {
+      stored = localStorage.getItem("theme");
+    } catch {}
     const initial: Theme =
       stored === "light" || stored === "dark"
         ? stored
@@ -74,7 +77,9 @@ export default function NavBar({ lang, currentPath, localizedPaths, messages }: 
   function toggleTheme() {
     const next: Theme = theme === "dark" ? "light" : "dark";
     setTheme(next);
-    localStorage.setItem("theme", next);
+    try {
+      localStorage.setItem("theme", next);
+    } catch {}
     document.documentElement.classList.toggle("dark", next === "dark");
     document.documentElement.style.colorScheme = next;
   }
